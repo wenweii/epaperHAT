@@ -23,7 +23,7 @@ try:
     font24 = ImageFont.truetype('/usr/share/fonts/truetype/wqy/wqy-microhei.ttc', 24)
     drawblack.text((10, 0), 'hello world', font = font24, fill = 0)
     drawblack.text((10, 20), '2.9inch e-Paper', font = font24, fill = 0)
-    drawblack.text((150, 0), u'微雪电子', font = font24, fill = 0)
+    drawblack.text((150, 0), u'微雪?子', font = font24, fill = 0)
     drawblack.line((20, 50, 70, 100), fill = 0)
     drawblack.line((70, 50, 20, 100), fill = 0)
     drawblack.rectangle((20, 50, 70, 100), outline = 0)
@@ -44,7 +44,7 @@ try:
     font18 = ImageFont.truetype('/usr/share/fonts/truetype/wqy/wqy-microhei.ttc', 18)
     drawblack.text((2, 0), 'hello world', font = font18, fill = 0)
     drawblack.text((2, 20), '2.9inch epd', font = font18, fill = 0)
-    drawblack.text((20, 50), u'微雪电子', font = font18, fill = 0)
+    drawblack.text((20, 50), u'微雪?子', font = font18, fill = 0)
     drawblack.line((10, 90, 60, 140), fill = 0)
     drawblack.line((60, 90, 10, 140), fill = 0)
     drawblack.rectangle((10, 90, 60, 140), outline = 0)
@@ -58,3 +58,23 @@ try:
 
     print "read bmp file"
     HBlackimage = Image.open('red.bmp')
+    HRedimage = Image.open('black.bmp')
+    epd.display(epd.getbuffer(HBlackimage), epd.getbuffer(HRedimage))
+    time.sleep(2)
+
+    print "read bmp file on window"
+    blackimage1 = Image.new('1', (epd2in7b.EPD_HEIGHT, epd2in7b.EPD_WIDTH), 255)  # 298*126
+    redimage1 = Image.new('1', (epd2in7b.EPD_HEIGHT, epd2in7b.EPD_WIDTH), 255)  # 298*126
+    newimage = Image.open('white.bmp')
+    newimage = Image.open('red.bmp')
+    newimage = Image.open('black.bmp')
+    redimage1.paste(newimage, (10,10))
+    blackimage1.paste(newimage, (10,10))
+
+    epd.display(epd.getbuffer(blackimage1), epd.getbuffer(redimage1))
+
+    epd.sleep()
+
+except Exception, e:
+    print 'traceback.format_exc():\n%s' % traceback.format_exc()
+    exit()
